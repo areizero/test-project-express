@@ -1,13 +1,17 @@
+// dependencia para usar env
+require('dotenv').config()
+
 // dependencias
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 
+
 // conexion a mongo
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
-db.once('open', () => console.log('connected to database'))
+db.once('open', () => console.log(`connected to database ${process.env.DATABASE_URL}`))
 
 // inicializacion servidor
 app.listen(3000, () => console.log('server started'))
